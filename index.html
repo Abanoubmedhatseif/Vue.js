@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library 📖</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="vue3.js"></script>
+    <script src="books.js"></script>
+    <style>
+      .wishlist {
+        background-color: #f8f9fa;
+        padding: 20px;
+      }
+      .more {
+        color: red;
+      }
+      .less {
+        color: green;
+      }
+    </style>
+  </head>
+  <body class="p-5">
+    <div>
+      <header class="d-flex flex-row p-5 justify-content-center">
+        <h1 @click="wishListOpen = false">Passion Library💝😍</h1>
+        <input
+          class="mx-5 btn btn-primary"
+          type="button"
+          value="wishlist"
+          @click="wishListOpen = true"
+        />
+      </header>
+      <main v-if="!wishListOpen" class="wishlist">
+        <h2 class="text-center mb-5">Available Books</h2>
+        <div class="row">
+          <div class="col-md-3 mb-3" v-for="book in books" :key="book.id">
+            <div class="card">
+              <img
+                :src="book.image"
+                class="card-img-top img-fluid"
+                alt="book cover"
+                style="object-fit: cover; height: 200px"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">
+                  <strong>Author:</strong> {{ book.author }}
+                </p>
+                <p class="card-text">
+                  <strong>Category:</strong> {{ book.category }}
+                  <strong :class="book.pages > 50 ? 'more' : 'less'"
+                    >Pages:</strong
+                  >
+                  {{ book.pages }}
+                </p>
+                <p class="card-text">
+                  <strong>Price:</strong> ${{ book.price.toFixed(2) }}
+                </p>
+                <p class="card-text"><strong>ISBN</strong> {{ book.ISBN }}</p>
+                <input
+                  type="button"
+                  class="btn btn-success mx-auto"
+                  value="Add to List"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div v-else class="wishlist">
+        <h2 class="text-center mb-5">Wish List</h2>
+        <div class="row">
+          <div class="col-md-3 mb-3" v-for="book in wishlist" :key="book.id">
+            <div class="card">
+              <img
+                :src="book.image"
+                class="card-img-top img-fluid"
+                alt="book cover"
+                style="object-fit: cover; height: 200px"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data: () => ({
+          wishListOpen: false,
+          books: books,
+          wishlist: [],
+        }),
+      });
+      app.mount("div");
+    </script>
+  </body>
+</html>
